@@ -1,12 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose  from 'mongoose';
-import signInRouter from './routes/sign-in'
+import authRouter from './routes/auth'
 
 dotenv.config()
 
 const app = express();
 const port = 3000;
+
+app.use(express.json())
 
 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cryed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`).then(()=>{
@@ -15,7 +17,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
   console.error('Error while connecting database', e)
 }) 
 
-app.use('/sign-in', signInRouter )
+app.use('/auth', authRouter )
 
 
 app.listen(port, () => {
