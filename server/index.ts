@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response, NextFunction, ErrorRequestHandler} from 'express';
 import dotenv from 'dotenv';
 import mongoose  from 'mongoose';
 import authRouter from './routes/auth'
@@ -18,6 +18,19 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
 }) 
 
 app.use('/auth', authRouter )
+
+
+app.use((err: ResError ,req: Request,res: Response,next:NextFunction) => {
+
+  const statusCode = err.statusCode || 500
+  const error = err.message || "Internal Server Error"
+
+  return res.status(statusCode).json({
+    success: false,
+    message: error
+  })
+
+})
 
 
 app.listen(port, () => {
