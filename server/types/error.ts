@@ -1,3 +1,3 @@
-interface ResError extends Error {
+export interface ResError extends Error {
     statusCode?: number;
 }
