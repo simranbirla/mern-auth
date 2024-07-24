@@ -8,5 +8,6 @@ export interface IUser extends  mongoose.Document {
     email: string;
     createdAt: string | Date;
     updatedAt: string | Date;
+    profilePhotoUrl:string
     _doc: any;
 }
